@@ -159,13 +159,22 @@
         }
       }
 
-      inorder() {
+
+      posorder() {
         if (this.raiz == null) {
           return null;
         } else {
-          this._inOrder(this.raiz);
+          this._posOrder(this.raiz);
         }
       }
+      _posOrder(nodox) {
+        if (nodox.izquierda != null)
+          this._posOrder(nodox.izquierda);
+        if (nodox.derecha)
+          this._posOrder(nodox.derecha);
+        console.log(nodox.numero);
+      }
+
       preorder() {
         if (this.raiz == null) {
           return null;
@@ -180,6 +189,13 @@
         if (nodox.derecha)
           this._preOrder(nodox.derecha);
       }
+      inorder() {
+        if (this.raiz == null) {
+          return null;
+        } else {
+          this._inOrder(this.raiz);
+        }
+      }
       _inOrder(nodox) {
         if (nodox.izquierda != null)
           this._inOrder(nodox.izquierda);
@@ -188,6 +204,9 @@
           this._inOrder(nodox.derecha);
       }
 
+      sPreOrder() {
+
+      }
 
     }
 
@@ -220,7 +239,10 @@
       }
       */
 
+      console.log('PREORDER: ');
       arbol.preorder();
+      console.log('POSORDER');
+      arbol.posorder();
 
     });
   </script>
