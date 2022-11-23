@@ -26,6 +26,8 @@
     class Arbol {
       constructor() {
         this.raiz = null;
+        this.lifo = [];
+        this.fifo = [];
       }
 
       agregar(expresion) {
@@ -184,6 +186,7 @@
       }
       _preOrder(nodox) {
         console.log(nodox.numero);
+        this.lifo.push(nodox.numero);
         if (nodox.izquierda != null)
           this._preOrder(nodox.izquierda);
         if (nodox.derecha)
@@ -205,7 +208,41 @@
       }
 
       sPreOrder() {
-
+        let aux = [];
+        let derecha = '';
+        let izquierda = '';
+        let operacion = '';
+        let res = 0;
+        //(this.lifo[i] == '*') || (this.lifo[i] == '/')
+        for (let i = this.lifo.length - 1; i >= 0; i--) {
+          if (this.lifo[i].match(/^[0-9]+$/)) {
+            aux.push(this.lifo.pop());
+            console.log(aux)
+          } else {
+            izquierda = aux.pop();
+            operacion = this.lifo[i];
+            this.lifo.pop();
+            derecha = aux.pop();
+            if (operacion == '/') {
+              res = parseInt(izquierda) / parseInt(derecha);
+              console.log(res);
+              aux.push(res);
+            } else if (operacion == '*') {
+              res = parseInt(izquierda) * parseInt(derecha);
+              console.log(res);
+              aux.push(res);
+            } else if (operacion == '+') {
+              res = parseInt(izquierda) + parseInt(derecha);
+              console.log(res);
+              aux.push(res);
+            } else if (operacion == '-') {
+              res = parseInt(izquierda) - parseInt(derecha);
+              console.log(res);
+              aux.push(res);
+            }
+          }
+        }
+        return aux;
       }
 
     }
@@ -243,6 +280,9 @@
       arbol.preorder();
       console.log('POSORDER');
       arbol.posorder();
+      console.log(arbol.lifo);
+      console.log(arbol.sPreOrder());
+      console.log(arbol.raiz);
 
     });
   </script>
